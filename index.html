@@ -131,48 +131,28 @@
   .section-head p{color:var(--text-dim);font-size:16px;margin-top:16px;}
   .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
 
-  /* SERVICES */
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  .service-card{
-    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
-    padding:32px 28px;transition:.3s ease;position:relative;overflow:hidden;
-  }
-  .service-card:hover{border-color:var(--accent-2);transform:translateY(-4px);box-shadow:0 16px 36px -18px rgba(10,25,49,.2);}
-  .service-icon{width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:22px;}
-  .service-card h3{font-size:19px;margin-bottom:10px;}
-  .service-card p{color:var(--text-dim);font-size:14.5px;margin-bottom:18px;}
+  /* ALTERNATING SECTION BACKGROUNDS */
+  .section-dark{background:var(--accent);color:var(--bg-alt);}
+  .section-dark .eyebrow{color:#BEE0F5;}
+  .section-dark .eyebrow::before{background:#BEE0F5;box-shadow:0 0 12px rgba(190,224,245,.5);}
+  .section-dark .section-head p{color:#C7DBEA;}
+  .section-dark .service-item p,
+  .section-dark .mvv-item p{color:#C7DBEA;}
+
+  /* SERVICES (sin cajas, directo en el módulo) */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 32px;}
+  .service-item{padding:0;}
+  .service-icon{width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px;}
+  .service-item h3{font-size:19px;margin-bottom:10px;}
+  .service-item p{color:var(--text-dim);font-size:14.5px;margin-bottom:14px;}
   .service-link{font-size:13.5px;font-weight:700;color:var(--accent);display:inline-flex;align-items:center;gap:6px;}
+  .section-dark .service-link{color:#fff;}
 
-  /* MISION VISION VALORES */
-  .mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:80px;}
-  .mvv-card{
-    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
-    padding:30px 26px;text-align:left;
-  }
-  .mvv-card h3{font-size:18px;margin-bottom:10px;}
-  .mvv-card p{color:var(--text-dim);font-size:14.5px;}
-
-  /* WHY / SPLIT */
-  .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center;}
-  .why-visual{
-    border-radius:var(--radius);border:1px solid var(--border);
-    background:var(--panel-2);
-    aspect-ratio:4/4.6;position:relative;overflow:hidden;padding:26px;
-  }
-  .why-visual .code-window{background:var(--dark);border:1px solid #16304f;border-radius:12px;padding:18px;font-family:monospace;font-size:12.5px;color:#b9c8d8;line-height:1.9;height:100%;}
-  .code-window .c1{color:#7fb0e0;}
-  .code-window .c2{color:#4A7FA7;}
-  .code-window .c3{color:#9cdcfe;}
-  .code-window .c4{color:#e0b98c;}
-  .why-list{display:flex;flex-direction:column;gap:22px;margin-top:30px;}
-  .why-item{display:flex;gap:18px;}
-  .why-num{
-    flex-shrink:0;width:42px;height:42px;border-radius:11px;background:var(--panel-2);
-    border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk';font-weight:700;color:var(--accent);font-size:14px;
-  }
-  .why-item h4{font-size:16.5px;margin-bottom:6px;}
-  .why-item p{color:var(--text-dim);font-size:14.5px;}
+  /* MISION VISION VALORES (sin cajas, directo en el módulo) */
+  .mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 32px;}
+  .mvv-item{text-align:left;}
+  .mvv-item h3{font-size:19px;margin-bottom:10px;}
+  .mvv-item p{font-size:14.5px;line-height:1.6;}
 
   /* PROJECTS */
   .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -192,29 +172,6 @@
   .project-tag{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2);margin-bottom:8px;display:block;}
   .project-body h3{font-size:18px;margin-bottom:8px;}
   .project-body p{color:var(--text-dim);font-size:14px;}
-
-  /* PROCESS */
-  .process-strip{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-  .process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;}
-  .process-step{padding:0 20px 0 0;position:relative;}
-  .process-step:not(:last-child)::after{
-    content:"";position:absolute;top:23px;right:-10px;width:20px;height:1px;background:var(--border);
-  }
-  .process-step .n{font-family:'Space Grotesk';font-size:13px;color:var(--accent-2);font-weight:700;margin-bottom:14px;}
-  .process-step h4{font-size:16px;margin-bottom:8px;}
-  .process-step p{font-size:13.5px;color:var(--text-dim);}
-
-  /* TESTIMONIAL */
-  .testimonial{
-    background:var(--panel-2);border:1px solid var(--border);
-    border-radius:24px;padding:60px;display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;
-  }
-  .quote-mark{font-family:'Space Grotesk';font-size:70px;color:var(--accent-2);line-height:1;opacity:.6;}
-  .testimonial p{font-size:20px;line-height:1.5;margin-bottom:20px;font-weight:500;color:var(--text);}
-  .testi-author{display:flex;align-items:center;gap:14px;}
-  .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));}
-  .testi-author b{display:block;font-size:14.5px;}
-  .testi-author span{font-size:13px;color:var(--text-faint);}
 
   /* CTA / CONTACT */
   .cta-section{
@@ -271,12 +228,6 @@
     .hero-inner{grid-template-columns:1fr;}
     .hero-visual{order:-1;max-width:420px;margin:0 auto 20px;}
     .services-grid,.projects-grid,.mvv-grid{grid-template-columns:repeat(2,1fr);}
-    .split{grid-template-columns:1fr;}
-    .why-visual{max-width:380px;margin:0 auto;}
-    .process-grid{grid-template-columns:repeat(2,1fr);gap:30px 20px;}
-    .process-step::after{display:none;}
-    .testimonial{grid-template-columns:1fr;padding:40px;text-align:center;}
-    .testi-author{justify-content:center;}
     .cta-section{grid-template-columns:1fr;padding:36px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
   }
@@ -299,7 +250,6 @@
         <a href="#servicios">Servicios</a>
         <a href="#nosotros">Nosotros</a>
         <a href="#proyectos">Proyectos</a>
-        <a href="#proceso">Proceso</a>
         <a href="#contacto">Contacto</a>
       </div>
       <div class="nav-right">
@@ -315,7 +265,7 @@
   <div class="hero-grid"></div>
   <div class="container hero-inner">
     <div>
-      <h1>Construimos el <span class="grad">software</span><br>que impulsa tu negocio</h1>
+      <h1>Centraliza y gestiona<br>tu negocio de forma <span class="grad">eficiente</span></h1>
       <p>En CodeSoft diseñamos, desarrollamos y escalamos productos digitales a medida: web, apps móviles, plataformas cloud e integraciones — de punta a punta.</p>
       <div class="hero-cta">
         <a href="#contacto" class="btn btn-primary">Empezar mi proyecto <span class="btn-arrow"></span></a>
@@ -326,13 +276,11 @@
       <div class="mock-card mock-shot">
         <img src="Assets/Captura.png" alt="Dashboard desarrollado por CodeSoft">
       </div>
-      <div class="floating-chip chip-1"><span class="dot-green"></span> Deploy exitoso</div>
-      <div class="floating-chip chip-2">⚡ Uptime 99.9%</div>
     </div>
   </div>
 </section>
 
-<section id="nosotros">
+<section id="nosotros" class="section-dark">
   <div class="container">
     <div class="section-head center">
       <span class="eyebrow">Nosotros</span>
@@ -340,62 +288,20 @@
       <p>Somos un estudio de desarrollo de software que acompaña a empresas y emprendedores a convertir ideas en productos digitales sólidos.</p>
     </div>
     <div class="mvv-grid">
-      <div class="mvv-card">
+      <div class="mvv-item">
         <div class="service-icon">🎯</div>
         <h3>Misión</h3>
-        <p>Ayudar a nuestros clientes a crecer a través de software confiable, bien construido y adaptado a sus necesidades reales.</p>
+        <p>Ofrecer servicios de software a medida que ayuden a las empresas a gestionar mejor sus datos, optimizar sus procesos e incrementar sus ingresos.</p>
       </div>
-      <div class="mvv-card">
+      <div class="mvv-item">
         <div class="service-icon">🔭</div>
         <h3>Visión</h3>
-        <p>Ser el equipo de desarrollo de referencia para empresas que buscan digitalizar y escalar sus operaciones en la región.</p>
+        <p>Ser la empresa boliviana líder en tecnología empresarial, referente para negocios que buscan digitalizar y hacer crecer su operación.</p>
       </div>
-      <div class="mvv-card">
+      <div class="mvv-item">
         <div class="service-icon">💎</div>
         <h3>Valores</h3>
-        <p>Compromiso, transparencia y calidad: cumplimos lo que prometemos y construimos relaciones de largo plazo con cada cliente.</p>
-      </div>
-    </div>
-
-    <div class="split why-split">
-      <div class="why-visual">
-        <div class="code-window">
-          <div><span class="c1">const</span> <span class="c3">producto</span> = <span class="c1">await</span> <span class="c2">codesoft</span>.build({</div>
-          <div>&nbsp;&nbsp;idea: <span class="c4">"tu proyecto"</span>,</div>
-          <div>&nbsp;&nbsp;calidad: <span class="c4">"enterprise"</span>,</div>
-          <div>&nbsp;&nbsp;tiempo: <span class="c4">"ágil"</span>,</div>
-          <div>&nbsp;&nbsp;soporte: <span class="c1">true</span></div>
-          <div>});</div>
-          <br>
-          <div><span class="c1">export</span> <span class="c1">default</span> <span class="c3">producto</span>;</div>
-          <div>&nbsp;</div>
-          <div>// ✓ tests pasados</div>
-          <div>// ✓ build exitoso</div>
-          <div>// ✓ desplegado en producción</div>
-        </div>
-      </div>
-      <div>
-        <span class="eyebrow">Por qué CodeSoft</span>
-        <h2 style="font-size:clamp(26px,3.2vw,38px);margin:14px 0 6px;">Tecnología sólida, resultados medibles</h2>
-        <p style="color:var(--text-dim);font-size:15.5px;">No solo escribimos código: entendemos tu negocio y construimos soluciones que generan impacto real.</p>
-        <div class="why-list">
-          <div class="why-item">
-            <div class="why-num">01</div>
-            <div><h4>Equipo senior dedicado</h4><p>Ingenieros con experiencia en productos de alto tráfico y misión crítica.</p></div>
-          </div>
-          <div class="why-item">
-            <div class="why-num">02</div>
-            <div><h4>Metodología ágil</h4><p>Entregas iterativas cada 2 semanas con total visibilidad del progreso.</p></div>
-          </div>
-          <div class="why-item">
-            <div class="why-num">03</div>
-            <div><h4>Código propio y documentado</h4><p>Sos dueño del 100% del código fuente, sin ataduras ni licencias ocultas.</p></div>
-          </div>
-          <div class="why-item">
-            <div class="why-num">04</div>
-            <div><h4>Soporte post-lanzamiento</h4><p>Acompañamos el crecimiento de tu producto con mejoras y monitoreo continuo.</p></div>
-          </div>
-        </div>
+        <p>Transparencia y precios adecuados para cada cliente, trabajando siempre en sinergia para lograr resultados que realmente le sirvan a su negocio.</p>
       </div>
     </div>
   </div>
@@ -418,37 +324,37 @@
       <p>Desde la idea hasta la puesta en producción y el mantenimiento: cubrimos cada etapa del ciclo de vida de tu producto.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card">
+      <div class="service-item">
         <div class="service-icon">💻</div>
         <h3>Desarrollo Web</h3>
         <p>Sitios y plataformas web rápidas, seguras y escalables, construidas con tecnologías modernas.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </div>
-      <div class="service-card">
+      <div class="service-item">
         <div class="service-icon">📱</div>
         <h3>Apps Móviles</h3>
         <p>Aplicaciones nativas e híbridas para iOS y Android, enfocadas en experiencia de usuario.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </div>
-      <div class="service-card">
+      <div class="service-item">
         <div class="service-icon">🧩</div>
         <h3>Software a Medida</h3>
         <p>Sistemas hechos a medida de tus procesos: ERP, CRM, gestión interna y más.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </div>
-      <div class="service-card">
+      <div class="service-item">
         <div class="service-icon">☁️</div>
         <h3>Cloud & DevOps</h3>
         <p>Infraestructura en AWS, GCP o Azure, CI/CD y automatización para escalar sin fricción.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </div>
-      <div class="service-card">
+      <div class="service-item">
         <div class="service-icon">🔗</div>
         <h3>Integraciones & APIs</h3>
         <p>Conectamos tus sistemas con pasarelas de pago, ERPs, CRMs y servicios de terceros.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </div>
-      <div class="service-card">
+      <div class="service-item">
         <div class="service-icon">🛠️</div>
         <h3>Soporte & Mantenimiento</h3>
         <p>Monitoreo, mejoras continuas y soporte técnico para que tu producto nunca se detenga.</p>
@@ -458,7 +364,7 @@
   </div>
 </section>
 
-<section id="proyectos">
+<section id="proyectos" class="section-dark">
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">Portfolio</span>
@@ -490,39 +396,6 @@
           <p>Plataforma de administración para una urbanización: copropietarios, cobros, lecturas de medidores y reservas.</p>
         </div>
       </a>
-    </div>
-  </div>
-</section>
-
-<div class="process-strip">
-  <section id="proceso">
-    <div class="container">
-      <div class="section-head center" style="margin-bottom:64px;">
-        <span class="eyebrow">Nuestro proceso</span>
-        <h2>De la idea al producto en producción</h2>
-      </div>
-      <div class="process-grid">
-        <div class="process-step"><div class="n">01</div><h4>Descubrimiento</h4><p>Analizamos tu negocio, objetivos y requerimientos técnicos.</p></div>
-        <div class="process-step"><div class="n">02</div><h4>Diseño UX/UI</h4><p>Prototipamos la experiencia antes de escribir una línea de código.</p></div>
-        <div class="process-step"><div class="n">03</div><h4>Desarrollo</h4><p>Sprints ágiles con entregas incrementales y demos periódicas.</p></div>
-        <div class="process-step"><div class="n">04</div><h4>Testing & QA</h4><p>Pruebas automatizadas y manuales para garantizar calidad.</p></div>
-        <div class="process-step"><div class="n">05</div><h4>Lanzamiento</h4><p>Deploy, monitoreo y soporte continuo post-lanzamiento.</p></div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<section>
-  <div class="container">
-    <div class="testimonial">
-      <div class="quote-mark">"</div>
-      <div>
-        <p>CodeSoft transformó por completo nuestra operación. En cuatro meses tuvimos una plataforma robusta, y el soporte post-lanzamiento sigue siendo excelente.</p>
-        <div class="testi-author">
-          <div class="avatar"></div>
-          <div><b>Marina Ibáñez</b><span>COO, Grupo Nortex</span></div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -588,7 +461,6 @@
         <h5>Empresa</h5>
         <a href="#nosotros">Nosotros</a>
         <a href="#proyectos">Proyectos</a>
-        <a href="#proceso">Proceso</a>
         <a href="#contacto">Contacto</a>
       </div>
       <div class="footer-col">
