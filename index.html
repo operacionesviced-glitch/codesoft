@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeSoft — Soluciones de Software a Medida</title>
+<link rel="icon" href="Assets/Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6FAFD;
+    --bg-alt:#EAF2F9;
+    --panel:#FFFFFF;
+    --panel-2:#EEF5FB;
+    --border:#D6E4F0;
+    --text:#0A1931;
+    --text-dim:#3E5A78;
+    --text-faint:#7691AB;
+    --dark:#0A1931;
+    --dark-2:#1A3D63;
+    --accent:#1A3D63;
+    --accent-2:#4A7FA7;
+    --accent-soft:rgba(74,127,167,.12);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-0.02em;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1220px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-2);
+  }
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 12px rgba(74,127,167,.5);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 26px;border-radius:999px;font-weight:700;font-size:14.5px;
+    cursor:pointer;border:1px solid transparent;transition:.25s ease;white-space:nowrap;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;box-shadow:0 8px 24px -8px rgba(26,61,99,.45);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(26,61,99,.55);}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--border);}
+  .btn-ghost:hover{border-color:var(--accent-2);background:var(--panel-2);}
+  .btn-arrow{width:10px;height:10px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(246,250,253,.82);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:20px;color:var(--text);}
+  .logo-mark{
+    width:40px;height:40px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .logo-mark img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;}
+  .nav-links{display:flex;gap:34px;font-size:14.5px;font-weight:600;color:var(--text-dim);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-right{display:flex;align-items:center;gap:16px;}
+  .nav-phone{font-size:14px;color:var(--text-dim);font-weight:600;}
+  .burger{display:none;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);align-items:center;justify-content:center;cursor:pointer;background:var(--panel);}
+  .burger span,.burger span::before,.burger span::after{content:"";display:block;width:16px;height:2px;background:var(--text);position:relative;transition:.2s;}
+  .burger span::before{position:absolute;top:-5px;}
+  .burger span::after{position:absolute;top:5px;}
+
+  /* HERO */
+  .hero{
+    position:relative;padding:100px 0 90px;overflow:hidden;
+    background:
+      radial-gradient(60% 60% at 82% 0%, rgba(74,127,167,.16), transparent 60%),
+      radial-gradient(45% 45% at 8% 15%, rgba(179,207,229,.35), transparent 60%);
+  }
+  .hero-grid{position:absolute;inset:0;
+    background-image:linear-gradient(to right, rgba(10,25,49,.045) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(10,25,49,.045) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(60% 60% at 60% 20%, black, transparent);
+  }
+  .hero-inner{position:relative;display:grid;grid-template-columns:.82fr 1.18fr;gap:60px;align-items:center;}
+  .hero h1{font-size:clamp(38px,5vw,60px);font-weight:700;line-height:1.05;margin:18px 0 20px;}
+  .hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero p{font-size:17.5px;color:var(--text-dim);max-width:520px;margin-bottom:34px;}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+
+  .hero-visual{position:relative;}
+  .mock-card{
+    background:var(--panel);
+    border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px;box-shadow:0 40px 80px -30px rgba(10,25,49,.22);
+  }
+  .mock-shot{padding:10px;overflow:hidden;}
+  .mock-shot img{border-radius:10px;width:100%;height:auto;display:block;}
+  .mock-top{display:flex;gap:6px;margin-bottom:16px;}
+  .mock-top span{width:10px;height:10px;border-radius:50%;background:var(--border);}
+  .mock-lines{display:flex;flex-direction:column;gap:10px;}
+  .mock-lines .l{height:10px;border-radius:6px;background:var(--panel-2);}
+  .mock-bars{display:flex;align-items:flex-end;gap:10px;height:110px;margin:20px 0;}
+  .mock-bars .b{flex:1;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--accent-2),rgba(74,127,167,.2));}
+  .floating-chip{
+    position:absolute;background:var(--panel);border:1px solid var(--border);
+    border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:10px;
+    box-shadow:0 20px 40px -18px rgba(10,25,49,.25);font-size:13px;font-weight:700;color:var(--text);
+  }
+  .chip-1{top:-24px;right:0px;}
+  .chip-2{bottom:-20px;left:-28px;}
+  .dot-green{width:9px;height:9px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 10px rgba(74,127,167,.6);}
+
+  .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:26px 0;overflow:hidden;background:var(--bg-alt);}
+  .marquee{display:flex;gap:70px;width:max-content;animation:scroll 26s linear infinite;font-family:'Space Grotesk';font-weight:600;font-size:15px;color:var(--text-faint);letter-spacing:.03em;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  section{padding:110px 0;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;margin-top:14px;line-height:1.15;}
+  .section-head p{color:var(--text-dim);font-size:16px;margin-top:16px;}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .service-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+    padding:32px 28px;transition:.3s ease;position:relative;overflow:hidden;
+  }
+  .service-card:hover{border-color:var(--accent-2);transform:translateY(-4px);box-shadow:0 16px 36px -18px rgba(10,25,49,.2);}
+  .service-icon{width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:22px;}
+  .service-card h3{font-size:19px;margin-bottom:10px;}
+  .service-card p{color:var(--text-dim);font-size:14.5px;margin-bottom:18px;}
+  .service-link{font-size:13.5px;font-weight:700;color:var(--accent);display:inline-flex;align-items:center;gap:6px;}
+
+  /* MISION VISION VALORES */
+  .mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:80px;}
+  .mvv-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+    padding:30px 26px;text-align:left;
+  }
+  .mvv-card h3{font-size:18px;margin-bottom:10px;}
+  .mvv-card p{color:var(--text-dim);font-size:14.5px;}
+
+  /* WHY / SPLIT */
+  .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center;}
+  .why-visual{
+    border-radius:var(--radius);border:1px solid var(--border);
+    background:var(--panel-2);
+    aspect-ratio:4/4.6;position:relative;overflow:hidden;padding:26px;
+  }
+  .why-visual .code-window{background:var(--dark);border:1px solid #16304f;border-radius:12px;padding:18px;font-family:monospace;font-size:12.5px;color:#b9c8d8;line-height:1.9;height:100%;}
+  .code-window .c1{color:#7fb0e0;}
+  .code-window .c2{color:#4A7FA7;}
+  .code-window .c3{color:#9cdcfe;}
+  .code-window .c4{color:#e0b98c;}
+  .why-list{display:flex;flex-direction:column;gap:22px;margin-top:30px;}
+  .why-item{display:flex;gap:18px;}
+  .why-num{
+    flex-shrink:0;width:42px;height:42px;border-radius:11px;background:var(--panel-2);
+    border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk';font-weight:700;color:var(--accent);font-size:14px;
+  }
+  .why-item h4{font-size:16.5px;margin-bottom:6px;}
+  .why-item p{color:var(--text-dim);font-size:14.5px;}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .project-card{
+    display:block;
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+    transition:.3s ease;cursor:pointer;
+  }
+  .project-card:hover{transform:translateY(-4px);border-color:var(--accent-2);box-shadow:0 16px 36px -18px rgba(10,25,49,.2);}
+  .project-thumb{
+    aspect-ratio:16/11;position:relative;overflow:hidden;
+    background:var(--bg-alt);
+  }
+  .project-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .4s ease;}
+  .project-card:hover .project-thumb img{transform:scale(1.04);}
+  .project-body{padding:22px 24px;}
+  .project-tag{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2);margin-bottom:8px;display:block;}
+  .project-body h3{font-size:18px;margin-bottom:8px;}
+  .project-body p{color:var(--text-dim);font-size:14px;}
+
+  /* PROCESS */
+  .process-strip{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;}
+  .process-step{padding:0 20px 0 0;position:relative;}
+  .process-step:not(:last-child)::after{
+    content:"";position:absolute;top:23px;right:-10px;width:20px;height:1px;background:var(--border);
+  }
+  .process-step .n{font-family:'Space Grotesk';font-size:13px;color:var(--accent-2);font-weight:700;margin-bottom:14px;}
+  .process-step h4{font-size:16px;margin-bottom:8px;}
+  .process-step p{font-size:13.5px;color:var(--text-dim);}
+
+  /* TESTIMONIAL */
+  .testimonial{
+    background:var(--panel-2);border:1px solid var(--border);
+    border-radius:24px;padding:60px;display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;
+  }
+  .quote-mark{font-family:'Space Grotesk';font-size:70px;color:var(--accent-2);line-height:1;opacity:.6;}
+  .testimonial p{font-size:20px;line-height:1.5;margin-bottom:20px;font-weight:500;color:var(--text);}
+  .testi-author{display:flex;align-items:center;gap:14px;}
+  .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+  .testi-author b{display:block;font-size:14.5px;}
+  .testi-author span{font-size:13px;color:var(--text-faint);}
+
+  /* CTA / CONTACT */
+  .cta-section{
+    background:var(--dark);
+    border-radius:28px;color:#fff;
+    padding:64px;display:grid;grid-template-columns:1fr 1fr;gap:50px;
+  }
+  .cta-section h2{font-size:clamp(26px,3vw,36px);margin-bottom:16px;color:#fff;}
+  .cta-section p{color:#9db3c8;margin-bottom:28px;}
+  .cta-section .eyebrow{color:#7fb0e0;}
+  .cta-section .eyebrow::before{background:#7fb0e0;}
+  .cta-points{display:flex;flex-direction:column;gap:12px;}
+  .cta-points div{display:flex;align-items:center;gap:10px;font-size:14.5px;color:#c3d3e2;}
+  .check{width:18px;height:18px;border-radius:50%;background:rgba(74,127,167,.25);color:#7fb0e0;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+  .whatsapp-link{
+    display:flex;align-items:center;gap:14px;margin-top:30px;padding:16px 18px;
+    background:#122a47;border:1px solid #24476b;border-radius:14px;transition:.2s;
+  }
+  .whatsapp-link:hover{border-color:#3bce6f;background:#152f4d;}
+  .whatsapp-link b{color:#fff;}
+  .whatsapp-link span:last-child{font-size:14px;color:#c3d3e2;line-height:1.5;}
+  .whatsapp-icon{
+    width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(59,206,111,.15);
+    display:flex;align-items:center;justify-content:center;font-size:19px;
+  }
+  form{display:flex;flex-direction:column;gap:14px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  input,textarea,select{
+    width:100%;padding:14px 16px;border-radius:12px;background:#122a47;
+    border:1px solid #24476b;color:#fff;font-family:'Manrope';font-size:14.5px;outline:none;
+    transition:.2s;
+  }
+  input::placeholder,textarea::placeholder{color:#7691AB;}
+  input:focus,textarea:focus,select:focus{border-color:var(--accent-2);}
+  textarea{resize:vertical;min-height:90px;}
+  form .btn{margin-top:6px;}
+
+  footer{border-top:1px solid var(--border);padding:70px 0 30px;background:var(--dark);color:#c3d3e2;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px;}
+  footer .logo{color:#fff;}
+  footer .logo-mark{background:#fff;border-radius:9px;padding:4px;}
+  footer .logo-mark img{mix-blend-mode:normal;}
+  .footer-brand p{color:#9db3c8;font-size:14px;margin:16px 0 20px;max-width:280px;}
+  .social-row{display:flex;gap:10px;}
+  .social-row a{width:36px;height:36px;border-radius:9px;background:#122a47;border:1px solid #24476b;display:flex;align-items:center;justify-content:center;font-size:13px;color:#c3d3e2;}
+  .footer-col h5{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#7691AB;margin-bottom:18px;}
+  .footer-col a{display:block;color:#9db3c8;font-size:14.5px;margin-bottom:12px;}
+  .footer-col a:hover{color:#fff;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;border-top:1px solid #1e3a5c;font-size:13px;color:#7691AB;flex-wrap:wrap;gap:12px;}
+
+  @media (max-width:980px){
+    .nav-links,.nav-phone{display:none;}
+    .burger{display:flex;}
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-visual{order:-1;max-width:420px;margin:0 auto 20px;}
+    .services-grid,.projects-grid,.mvv-grid{grid-template-columns:repeat(2,1fr);}
+    .split{grid-template-columns:1fr;}
+    .why-visual{max-width:380px;margin:0 auto;}
+    .process-grid{grid-template-columns:repeat(2,1fr);gap:30px 20px;}
+    .process-step::after{display:none;}
+    .testimonial{grid-template-columns:1fr;padding:40px;text-align:center;}
+    .testi-author{justify-content:center;}
+    .cta-section{grid-template-columns:1fr;padding:36px;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:620px){
+    .container{padding:0 20px;}
+    .services-grid,.projects-grid,.mvv-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    section{padding:70px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo"><span class="logo-mark"><img src="Assets/Logo.png" alt="CodeSoft"></span>CodeSoft</a>
+      <div class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://wa.me/59163968427" target="_blank" rel="noopener" class="nav-phone">+591 6396-8427</a>
+        <a href="#contacto" class="btn btn-primary">Solicitar propuesta</a>
+        <div class="burger" id="burger"><span></span></div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <div>
+      <h1>Construimos el <span class="grad">software</span><br>que impulsa tu negocio</h1>
+      <p>En CodeSoft diseñamos, desarrollamos y escalamos productos digitales a medida: web, apps móviles, plataformas cloud e integraciones — de punta a punta.</p>
+      <div class="hero-cta">
+        <a href="#contacto" class="btn btn-primary">Empezar mi proyecto <span class="btn-arrow"></span></a>
+        <a href="#proyectos" class="btn btn-ghost">Ver proyectos</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mock-card mock-shot">
+        <img src="Assets/Captura.png" alt="Dashboard desarrollado por CodeSoft">
+      </div>
+      <div class="floating-chip chip-1"><span class="dot-green"></span> Deploy exitoso</div>
+      <div class="floating-chip chip-2">⚡ Uptime 99.9%</div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Nosotros</span>
+      <h2>Un equipo enfocado en construir bien</h2>
+      <p>Somos un estudio de desarrollo de software que acompaña a empresas y emprendedores a convertir ideas en productos digitales sólidos.</p>
+    </div>
+    <div class="mvv-grid">
+      <div class="mvv-card">
+        <div class="service-icon">🎯</div>
+        <h3>Misión</h3>
+        <p>Ayudar a nuestros clientes a crecer a través de software confiable, bien construido y adaptado a sus necesidades reales.</p>
+      </div>
+      <div class="mvv-card">
+        <div class="service-icon">🔭</div>
+        <h3>Visión</h3>
+        <p>Ser el equipo de desarrollo de referencia para empresas que buscan digitalizar y escalar sus operaciones en la región.</p>
+      </div>
+      <div class="mvv-card">
+        <div class="service-icon">💎</div>
+        <h3>Valores</h3>
+        <p>Compromiso, transparencia y calidad: cumplimos lo que prometemos y construimos relaciones de largo plazo con cada cliente.</p>
+      </div>
+    </div>
+
+    <div class="split why-split">
+      <div class="why-visual">
+        <div class="code-window">
+          <div><span class="c1">const</span> <span class="c3">producto</span> = <span class="c1">await</span> <span class="c2">codesoft</span>.build({</div>
+          <div>&nbsp;&nbsp;idea: <span class="c4">"tu proyecto"</span>,</div>
+          <div>&nbsp;&nbsp;calidad: <span class="c4">"enterprise"</span>,</div>
+          <div>&nbsp;&nbsp;tiempo: <span class="c4">"ágil"</span>,</div>
+          <div>&nbsp;&nbsp;soporte: <span class="c1">true</span></div>
+          <div>});</div>
+          <br>
+          <div><span class="c1">export</span> <span class="c1">default</span> <span class="c3">producto</span>;</div>
+          <div>&nbsp;</div>
+          <div>// ✓ tests pasados</div>
+          <div>// ✓ build exitoso</div>
+          <div>// ✓ desplegado en producción</div>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">Por qué CodeSoft</span>
+        <h2 style="font-size:clamp(26px,3.2vw,38px);margin:14px 0 6px;">Tecnología sólida, resultados medibles</h2>
+        <p style="color:var(--text-dim);font-size:15.5px;">No solo escribimos código: entendemos tu negocio y construimos soluciones que generan impacto real.</p>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-num">01</div>
+            <div><h4>Equipo senior dedicado</h4><p>Ingenieros con experiencia en productos de alto tráfico y misión crítica.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">02</div>
+            <div><h4>Metodología ágil</h4><p>Entregas iterativas cada 2 semanas con total visibilidad del progreso.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">03</div>
+            <div><h4>Código propio y documentado</h4><p>Sos dueño del 100% del código fuente, sin ataduras ni licencias ocultas.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">04</div>
+            <div><h4>Soporte post-lanzamiento</h4><p>Acompañamos el crecimiento de tu producto con mejoras y monitoreo continuo.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="container">
+    <div class="marquee">
+      <span>REACT</span><span>NODE.JS</span><span>PYTHON</span><span>AWS</span><span>FLUTTER</span><span>POSTGRESQL</span><span>DOCKER</span><span>TYPESCRIPT</span>
+      <span>REACT</span><span>NODE.JS</span><span>PYTHON</span><span>AWS</span><span>FLUTTER</span><span>POSTGRESQL</span><span>DOCKER</span><span>TYPESCRIPT</span>
+    </div>
+  </div>
+</div>
+
+<section id="servicios">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Servicios</span>
+      <h2>Soluciones digitales de extremo a extremo</h2>
+      <p>Desde la idea hasta la puesta en producción y el mantenimiento: cubrimos cada etapa del ciclo de vida de tu producto.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3>Desarrollo Web</h3>
+        <p>Sitios y plataformas web rápidas, seguras y escalables, construidas con tecnologías modernas.</p>
+        <a href="#contacto" class="service-link">Conocer más →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Apps Móviles</h3>
+        <p>Aplicaciones nativas e híbridas para iOS y Android, enfocadas en experiencia de usuario.</p>
+        <a href="#contacto" class="service-link">Conocer más →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧩</div>
+        <h3>Software a Medida</h3>
+        <p>Sistemas hechos a medida de tus procesos: ERP, CRM, gestión interna y más.</p>
+        <a href="#contacto" class="service-link">Conocer más →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <h3>Cloud & DevOps</h3>
+        <p>Infraestructura en AWS, GCP o Azure, CI/CD y automatización para escalar sin fricción.</p>
+        <a href="#contacto" class="service-link">Conocer más →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔗</div>
+        <h3>Integraciones & APIs</h3>
+        <p>Conectamos tus sistemas con pasarelas de pago, ERPs, CRMs y servicios de terceros.</p>
+        <a href="#contacto" class="service-link">Conocer más →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛠️</div>
+        <h3>Soporte & Mantenimiento</h3>
+        <p>Monitoreo, mejoras continuas y soporte técnico para que tu producto nunca se detenga.</p>
+        <a href="#contacto" class="service-link">Conocer más →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Portfolio</span>
+      <h2>Proyectos que hablan por nosotros</h2>
+      <p>Una muestra de los productos digitales que ayudamos a construir y escalar.</p>
+    </div>
+    <div class="projects-grid">
+      <a href="proyecto-majo-trading.html" class="project-card">
+        <div class="project-thumb"><img src="Assets/Proyecto 1.png" alt="Sistema tipo SAP para Majo Trading S.R.L."></div>
+        <div class="project-body">
+          <span class="project-tag">ERP · Exportación</span>
+          <h3>Majo Trading S.R.L.</h3>
+          <p>Sistema de gestión tipo SAP para una empresa exportadora de quinoa: contactos, pedidos, correos con IA y finanzas en un solo panel.</p>
+        </div>
+      </a>
+      <a href="proyecto-el-antojito.html" class="project-card">
+        <div class="project-thumb"><img src="Assets/Proyecto 2.png" alt="CRM para El Antojito"></div>
+        <div class="project-body">
+          <span class="project-tag">CRM · Alimentos</span>
+          <h3>El Antojito</h3>
+          <p>CRM a medida para una empresa de snacks: control de pedidos, clientes, productos e inventario de materia prima.</p>
+        </div>
+      </a>
+      <a href="proyecto-recinto-norte.html" class="project-card">
+        <div class="project-thumb"><img src="Assets/Proyecto 3.png" alt="App de administración para Recinto Norte"></div>
+        <div class="project-body">
+          <span class="project-tag">App · Administración</span>
+          <h3>Recinto Norte</h3>
+          <p>Plataforma de administración para una urbanización: copropietarios, cobros, lecturas de medidores y reservas.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="process-strip">
+  <section id="proceso">
+    <div class="container">
+      <div class="section-head center" style="margin-bottom:64px;">
+        <span class="eyebrow">Nuestro proceso</span>
+        <h2>De la idea al producto en producción</h2>
+      </div>
+      <div class="process-grid">
+        <div class="process-step"><div class="n">01</div><h4>Descubrimiento</h4><p>Analizamos tu negocio, objetivos y requerimientos técnicos.</p></div>
+        <div class="process-step"><div class="n">02</div><h4>Diseño UX/UI</h4><p>Prototipamos la experiencia antes de escribir una línea de código.</p></div>
+        <div class="process-step"><div class="n">03</div><h4>Desarrollo</h4><p>Sprints ágiles con entregas incrementales y demos periódicas.</p></div>
+        <div class="process-step"><div class="n">04</div><h4>Testing & QA</h4><p>Pruebas automatizadas y manuales para garantizar calidad.</p></div>
+        <div class="process-step"><div class="n">05</div><h4>Lanzamiento</h4><p>Deploy, monitoreo y soporte continuo post-lanzamiento.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section>
+  <div class="container">
+    <div class="testimonial">
+      <div class="quote-mark">"</div>
+      <div>
+        <p>CodeSoft transformó por completo nuestra operación. En cuatro meses tuvimos una plataforma robusta, y el soporte post-lanzamiento sigue siendo excelente.</p>
+        <div class="testi-author">
+          <div class="avatar"></div>
+          <div><b>Marina Ibáñez</b><span>COO, Grupo Nortex</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="container">
+    <div class="cta-section">
+      <div>
+        <span class="eyebrow">Hablemos</span>
+        <h2>¿Listo para llevar tu idea a producción?</h2>
+        <p>Contanos sobre tu proyecto y te respondemos con una propuesta en menos de 24 horas.</p>
+        <div class="cta-points">
+          <div><span class="check">✓</span> Consultoría inicial sin cargo</div>
+          <div><span class="check">✓</span> Presupuesto claro y sin sorpresas</div>
+          <div><span class="check">✓</span> Equipo dedicado a tu proyecto</div>
+        </div>
+        <a href="https://wa.me/59163968427" target="_blank" rel="noopener" class="whatsapp-link">
+          <span class="whatsapp-icon">💬</span>
+          <span>Escribinos directo por WhatsApp<br><b>+591 6396-8427</b></span>
+        </a>
+      </div>
+      <form id="contact-form" onsubmit="return enviarConsulta(event)">
+        <div class="form-row">
+          <input type="text" name="nombre" placeholder="Nombre completo" required>
+          <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-row">
+          <input type="tel" name="telefono" placeholder="Teléfono">
+          <select name="tipo">
+            <option>Tipo de proyecto</option>
+            <option>Desarrollo Web</option>
+            <option>App Móvil</option>
+            <option>Software a Medida</option>
+            <option>Cloud & DevOps</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <textarea name="mensaje" placeholder="Contanos brevemente sobre tu proyecto..."></textarea>
+        <button type="submit" class="btn btn-primary">Enviar consulta <span class="btn-arrow"></span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo"><span class="logo-mark"><img src="Assets/Logo.png" alt="CodeSoft"></span>CodeSoft</a>
+        <p>Estudio de desarrollo de software especializado en productos web, móviles y a medida para empresas que buscan escalar.</p>
+        <div class="social-row">
+          <a href="#">in</a><a href="#">ig</a><a href="#">x</a><a href="#">gh</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Servicios</h5>
+        <a href="#servicios">Desarrollo Web</a>
+        <a href="#servicios">Apps Móviles</a>
+        <a href="#servicios">Software a Medida</a>
+        <a href="#servicios">Cloud & DevOps</a>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <a href="mailto:hola@codesoft.dev">hola@codesoft.dev</a>
+        <a href="https://wa.me/59163968427" target="_blank" rel="noopener">+591 6396-8427 (WhatsApp)</a>
+        <a href="#">Bolivia</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CodeSoft. Todos los derechos reservados.</span>
+      <span>Hecho con foco en resultados.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const SUPABASE_FN_URL = 'https://wprxcaxparunmmhzjgka.supabase.co/functions/v1/enviar-consulta';
+  const SUPABASE_ANON_KEY = 'sb_publishable_js9ssXYEUtHxrIc287eSkQ_KyekW6_c';
+
+  async function enviarConsulta(event){
+    event.preventDefault();
+    const form = event.target;
+    const btn = form.querySelector('button[type="submit"]');
+    const btnTextoOriginal = btn.innerHTML;
+
+    const payload = {
+      nombre: form.nombre.value.trim(),
+      email: form.email.value.trim(),
+      telefono: form.telefono.value.trim(),
+      tipo: form.tipo.value,
+      mensaje: form.mensaje.value.trim(),
+    };
+
+    btn.disabled = true;
+    btn.innerHTML = 'Enviando...';
+
+    try{
+      const res = await fetch(SUPABASE_FN_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify(payload),
+      });
+      if(!res.ok) throw new Error('request failed');
+      alert('¡Gracias! Recibimos tu consulta, te contactaremos a la brevedad.');
+      form.reset();
+    }catch(err){
+      alert('No pudimos enviar tu consulta. Probá de nuevo o escribinos por WhatsApp.');
+    }finally{
+      btn.disabled = false;
+      btn.innerHTML = btnTextoOriginal;
+    }
+    return false;
+  }
+
+  document.getElementById('burger').addEventListener('click', function(){
+    const links = document.querySelector('.nav-links');
+    const phone = document.querySelector('.nav-phone');
+    const open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    phone.style.display = open ? 'none' : 'block';
+    if(!open){
+      links.style.position='absolute';links.style.top='64px';links.style.left='0';links.style.right='0';
+      links.style.flexDirection='column';links.style.background='var(--bg)';links.style.padding='20px 32px';
+      links.style.borderBottom='1px solid var(--border)';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recinto Norte — Proyecto CodeSoft</title>
+<link rel="icon" href="Assets/Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6FAFD; --bg-alt:#EAF2F9; --panel:#FFFFFF; --panel-2:#EEF5FB; --border:#D6E4F0;
+    --text:#0A1931; --text-dim:#3E5A78; --text-faint:#7691AB; --dark:#0A1931;
+    --accent:#1A3D63; --accent-2:#4A7FA7; --accent-soft:rgba(74,127,167,.12); --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Manrope',system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-0.02em;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1000px;margin:0 auto;padding:0 32px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 12px rgba(74,127,167,.5);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:700;font-size:14.5px;cursor:pointer;border:1px solid transparent;transition:.25s ease;white-space:nowrap;}
+  .btn-primary{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;box-shadow:0 8px 24px -8px rgba(26,61,99,.45);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(26,61,99,.55);}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--border);}
+  .btn-ghost:hover{border-color:var(--accent-2);background:var(--panel-2);}
+  .btn-arrow{width:10px;height:10px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);}
+
+  header{position:sticky;top:0;z-index:100;background:rgba(246,250,253,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+  nav{max-width:1220px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:20px;color:var(--text);}
+  .logo-mark{width:38px;height:38px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .logo-mark img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;}
+  .back-link{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;color:var(--text-dim);}
+  .back-link:hover{color:var(--text);}
+  .back-arrow{width:8px;height:8px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);}
+
+  .hero-p{padding:56px 0 40px;}
+  .hero-p .eyebrow{margin-bottom:16px;}
+  .hero-p h1{font-size:clamp(30px,4.4vw,46px);margin-bottom:16px;line-height:1.1;}
+  .hero-p p.lead{font-size:17px;color:var(--text-dim);max-width:680px;margin-bottom:28px;}
+
+  .shot{border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;box-shadow:0 40px 80px -30px rgba(10,25,49,.25);margin-bottom:60px;}
+  .shot img{width:100%;display:block;}
+
+  section{padding:60px 0;}
+  .section-head h2{font-size:clamp(24px,3vw,32px);margin-bottom:14px;}
+  .section-head p{color:var(--text-dim);font-size:16px;max-width:680px;}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px;}
+  .feature-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px 24px;}
+  .feature-card h4{font-size:15.5px;margin-bottom:8px;}
+  .feature-card p{font-size:14px;color:var(--text-dim);}
+
+  .stack-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+  .stack-chip{background:var(--panel-2);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;color:var(--accent);}
+
+  .cta-band{background:var(--dark);border-radius:28px;padding:52px;text-align:center;margin-top:20px;}
+  .cta-band h2{color:#fff;font-size:clamp(22px,3vw,30px);margin-bottom:14px;}
+  .cta-band p{color:#9db3c8;margin-bottom:26px;}
+  .cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+  footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;font-size:13px;color:var(--text-faint);}
+
+  @media (max-width:640px){
+    .feature-grid{grid-template-columns:1fr;}
+    .container{padding:0 20px;}
+    .cta-band{padding:36px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="logo-mark"><img src="Assets/Logo.png" alt="CodeSoft"></span>CodeSoft</a>
+    <a href="index.html#proyectos" class="back-link"><span class="back-arrow"></span> Volver a proyectos</a>
+  </nav>
+</header>
+
+<div class="hero-p container">
+  <span class="eyebrow">App · Administración</span>
+  <h1>Recinto Norte</h1>
+  <p class="lead">Plataforma de administración integral para una urbanización privada. Centraliza copropietarios, cobros, lecturas de medidores, expensas y reservas de áreas comunes en un solo panel.</p>
+</div>
+
+<div class="container">
+  <div class="shot">
+    <img src="Assets/Proyecto 3.png" alt="Dashboard de Recinto Norte">
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">El proyecto</span>
+      <h2 style="margin-top:14px;">Administración clara para más de 360 copropietarios</h2>
+      <p>Recinto Norte necesitaba una herramienta para administrar el día a día de la urbanización: cobros, morosidad, lecturas de agua y reservas de espacios comunes. Construimos un panel administrativo con control de acceso por sector, pensado para escalar con la cantidad de copropietarios.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>Copropietarios</h4>
+        <p>Registro y gestión de más de 360 copropietarios de la urbanización.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Cobros y morosidad</h4>
+        <p>Visibilidad del total pendiente de cobro y de los copropietarios morosos.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Lecturas y macromedidores</h4>
+        <p>Registro y validación de lecturas de agua por sector.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Expensas y gastos</h4>
+        <p>Control de expensas, gastos y pagos de la administración.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Reservas</h4>
+        <p>Aprobación de reservas de áreas comunes por parte de los residentes.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Alertas activas</h4>
+        <p>Notificaciones para que la administración no pierda de vista pendientes clave.</p>
+      </div>
+    </div>
+    <div class="stack-row">
+      <span class="stack-chip">React</span>
+      <span class="stack-chip">Supabase</span>
+      <span class="stack-chip">RLS por sector</span>
+      <span class="stack-chip">PostgreSQL</span>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="container">
+    <div class="cta-band">
+      <h2>¿Administrás una urbanización o condominio?</h2>
+      <p>Podemos construirte una plataforma a medida para tu administración, igual que hicimos con Recinto Norte.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/59163968427" target="_blank" rel="noopener" class="btn btn-primary">Escribir por WhatsApp <span class="btn-arrow"></span></a>
+        <a href="index.html#proyectos" class="btn btn-ghost">Ver más proyectos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 CodeSoft. Todos los derechos reservados.</footer>
+
+</body>
+</html>
