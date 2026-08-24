@@ -496,7 +496,8 @@
     const carousel = document.getElementById('project-carousel');
     if(!carousel) return;
     const slides = [...carousel.querySelectorAll('.project-slide')];
-    const dots = [...carousel.querySelectorAll('.carousel-dot')];
+    const scope = carousel.closest('.callout') || document;
+    const dots = [...scope.querySelectorAll('.carousel-dot')];
     let current = 0;
     let animating = false;
     const DURATION = 550;
