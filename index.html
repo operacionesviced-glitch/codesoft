@@ -77,10 +77,6 @@
   .hero-shot-inner{border-radius:14px 14px 0 0;overflow:hidden;border:1px solid var(--border-soft);border-bottom:none;}
   .hero-shot img{width:100%;display:block;}
 
-  .marquee-wrap{border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);padding:24px 0;overflow:hidden;background:var(--bg-alt);}
-  .marquee{display:flex;gap:64px;width:max-content;animation:scroll 26s linear infinite;font-family:'Space Grotesk';font-weight:600;font-size:14px;color:var(--text-faint);letter-spacing:.03em;}
-  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
   section{padding:100px 0;}
 
   /* STATEMENT — declaración grande, sin cajas (estilo "Introducing Aside") */
@@ -93,7 +89,7 @@
   .feature-row{display:grid;grid-template-columns:280px 1fr;gap:40px;padding:36px 0;border-bottom:1px solid var(--border-soft);align-items:start;}
   .row-head{display:flex;align-items:center;gap:16px;}
   .row-num{font-family:'Space Grotesk';font-size:13px;color:var(--text-faint);}
-  .row-icon{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .row-dot{width:7px;height:7px;border-radius:50%;background:#fff;flex-shrink:0;}
   .row-head h3{font-size:20px;color:#fff;}
   .row-body p{color:var(--text-dim);font-size:15px;line-height:1.6;max-width:520px;margin-bottom:10px;}
   .row-link{font-size:13.5px;font-weight:700;color:#fff;display:inline-flex;align-items:center;gap:6px;}
@@ -123,6 +119,15 @@
   .carousel-dots{display:flex;gap:10px;justify-content:center;margin-top:32px;}
   .carousel-dot{width:26px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);border:none;cursor:pointer;padding:0;transition:.25s ease;}
   .carousel-dot.is-active{background:#fff;width:38px;}
+  .carousel-nav{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap;}
+  .carousel-nav button{
+    display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+    background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28);
+    font-size:13.5px;font-weight:700;cursor:pointer;transition:.2s ease;
+  }
+  .carousel-nav button:hover{border-color:#fff;background:rgba(255,255,255,.06);}
+  .carousel-nav .arrow-left{width:9px;height:9px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);}
+  .carousel-nav .arrow-right{width:9px;height:9px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);}
 
   /* CONTACT */
   .cta-section{background:var(--panel);border:1px solid var(--border-soft);border-radius:28px;padding:60px;display:grid;grid-template-columns:1fr 1fr;gap:50px;}
@@ -200,7 +205,6 @@
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="container">
-    <span class="eyebrow reveal" style="justify-content:center;margin-bottom:22px;">Estudio de software · Bolivia</span>
     <h1 class="reveal">Centraliza y gestiona tu negocio de forma eficiente</h1>
     <p class="lead reveal reveal-1">Diseñamos, desarrollamos y gestionamos software a medida para empresas que necesitan dejar atrás las planillas sueltas y tener su operación en un solo lugar.</p>
     <div class="hero-cta reveal reveal-2">
@@ -220,15 +224,6 @@
   </div>
 </section>
 
-<div class="marquee-wrap">
-  <div class="container">
-    <div class="marquee">
-      <span>REACT</span><span>NODE.JS</span><span>PYTHON</span><span>AWS</span><span>FLUTTER</span><span>POSTGRESQL</span><span>DOCKER</span><span>TYPESCRIPT</span>
-      <span>REACT</span><span>NODE.JS</span><span>PYTHON</span><span>AWS</span><span>FLUTTER</span><span>POSTGRESQL</span><span>DOCKER</span><span>TYPESCRIPT</span>
-    </div>
-  </div>
-</div>
-
 <section class="statement-section">
   <div class="container-narrow">
     <p class="statement reveal">Construimos <b>sistemas a medida</b> — ERP, CRM, apps y plataformas web — y después los alojamos y gestionamos por vos, para que tu negocio crezca sin depender de hojas de cálculo ni de diez herramientas distintas.</p>
@@ -243,42 +238,42 @@
     </div>
     <div class="feature-rows">
       <div class="feature-row reveal reveal-1">
-        <div class="row-head"><div class="row-icon">💻</div><h3>Desarrollo Web</h3></div>
+        <div class="row-head"><span class="row-dot"></span><h3>Desarrollo Web</h3></div>
         <div class="row-body">
           <p>Sitios y plataformas web rápidas, seguras y escalables, construidas con tecnologías modernas.</p>
           <a href="#contacto" class="row-link">Conocer más →</a>
         </div>
       </div>
       <div class="feature-row reveal reveal-2">
-        <div class="row-head"><div class="row-icon">📱</div><h3>Apps Móviles</h3></div>
+        <div class="row-head"><span class="row-dot"></span><h3>Apps Móviles</h3></div>
         <div class="row-body">
           <p>Aplicaciones nativas e híbridas para iOS y Android, enfocadas en experiencia de usuario.</p>
           <a href="#contacto" class="row-link">Conocer más →</a>
         </div>
       </div>
       <div class="feature-row reveal reveal-3">
-        <div class="row-head"><div class="row-icon">🧩</div><h3>Software a Medida</h3></div>
+        <div class="row-head"><span class="row-dot"></span><h3>Software a Medida</h3></div>
         <div class="row-body">
           <p>Sistemas hechos a medida de tus procesos: ERP, CRM, gestión interna y más.</p>
           <a href="#contacto" class="row-link">Conocer más →</a>
         </div>
       </div>
       <div class="feature-row reveal reveal-1">
-        <div class="row-head"><div class="row-icon">☁️</div><h3>Cloud & DevOps</h3></div>
+        <div class="row-head"><span class="row-dot"></span><h3>Cloud & DevOps</h3></div>
         <div class="row-body">
           <p>Infraestructura en AWS, GCP o Azure, CI/CD y automatización para escalar sin fricción.</p>
           <a href="#contacto" class="row-link">Conocer más →</a>
         </div>
       </div>
       <div class="feature-row reveal reveal-2">
-        <div class="row-head"><div class="row-icon">🔗</div><h3>Integraciones & APIs</h3></div>
+        <div class="row-head"><span class="row-dot"></span><h3>Integraciones & APIs</h3></div>
         <div class="row-body">
           <p>Conectamos tus sistemas con pasarelas de pago, ERPs, CRMs y servicios de terceros.</p>
           <a href="#contacto" class="row-link">Conocer más →</a>
         </div>
       </div>
       <div class="feature-row reveal reveal-3">
-        <div class="row-head"><div class="row-icon">🛠️</div><h3>Soporte & Mantenimiento</h3></div>
+        <div class="row-head"><span class="row-dot"></span><h3>Soporte & Mantenimiento</h3></div>
         <div class="row-body">
           <p>Monitoreo, mejoras continuas y soporte técnico para que tu producto nunca se detenga.</p>
           <a href="#contacto" class="row-link">Conocer más →</a>
@@ -353,6 +348,10 @@
           <button class="carousel-dot" data-goto="1" aria-label="Proyecto 2"></button>
           <button class="carousel-dot" data-goto="2" aria-label="Proyecto 3"></button>
         </div>
+        <div class="carousel-nav">
+          <button id="carousel-prev" type="button"><span class="arrow-left"></span> Ver anterior</button>
+          <button id="carousel-next" type="button">Ver siguiente <span class="arrow-right"></span></button>
+        </div>
       </div>
     </div>
   </div>
@@ -366,15 +365,15 @@
   <div class="container" style="margin-top:60px;">
     <div class="feature-rows">
       <div class="feature-row reveal reveal-1">
-        <div class="row-head"><span class="row-num">01</span><h3>Misión</h3></div>
+        <div class="row-head"><h3>Misión</h3></div>
         <div class="row-body"><p>Ofrecer servicios de software a medida que ayuden a las empresas a gestionar mejor sus datos, optimizar sus procesos e incrementar sus ingresos.</p></div>
       </div>
       <div class="feature-row reveal reveal-2">
-        <div class="row-head"><span class="row-num">02</span><h3>Visión</h3></div>
+        <div class="row-head"><h3>Visión</h3></div>
         <div class="row-body"><p>Ser la empresa boliviana líder en tecnología empresarial, referente para negocios que buscan digitalizar y hacer crecer su operación.</p></div>
       </div>
       <div class="feature-row reveal reveal-3">
-        <div class="row-head"><span class="row-num">03</span><h3>Valores</h3></div>
+        <div class="row-head"><h3>Valores</h3></div>
         <div class="row-body"><p>Transparencia y precios adecuados para cada cliente, trabajando siempre en sinergia para lograr resultados que realmente le sirvan a su negocio.</p></div>
       </div>
     </div>
@@ -506,7 +505,6 @@
     const slides = [...carousel.querySelectorAll('.project-slide')];
     const dots = [...carousel.querySelectorAll('.carousel-dot')];
     let current = 0;
-    let timer;
 
     function goTo(index){
       const next = (index + slides.length) % slides.length;
@@ -520,13 +518,10 @@
       setTimeout(() => slides[current].classList.remove('is-prev'), 700);
       current = next;
     }
-    function start(){ timer = setInterval(() => goTo(current + 1), 2500); }
-    function stop(){ clearInterval(timer); }
 
-    dots.forEach((dot, i) => { dot.addEventListener('click', () => { goTo(i); stop(); start(); }); });
-    carousel.addEventListener('mouseenter', stop);
-    carousel.addEventListener('mouseleave', start);
-    start();
+    dots.forEach((dot, i) => { dot.addEventListener('click', () => goTo(i)); });
+    document.getElementById('carousel-prev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('carousel-next').addEventListener('click', () => goTo(current + 1));
   })();
 
   (function(){
