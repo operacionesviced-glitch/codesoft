@@ -131,19 +131,27 @@
 
   .section-alt{background:var(--bg-alt);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
 
-  /* SERVICES (sin cajas, directo en el módulo) */
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 32px;}
-  .service-item{padding:0;}
-  .service-icon{width:48px;height:48px;border-radius:12px;background:var(--accent-soft);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px;}
-  .service-item h3{font-size:19px;margin-bottom:10px;color:#fff;}
-  .service-item p{color:var(--text-dim);font-size:14.5px;margin-bottom:14px;}
+  /* BIG STATEMENT (estilo "Introducing Aside") */
+  .statement{font-size:clamp(22px,2.6vw,32px);font-weight:500;line-height:1.4;color:#fff;max-width:820px;}
+  .statement b{color:var(--text-dim);font-weight:500;}
+
+  /* FEATURE ROWS (filas grandes, estilo aside.com — sin cajas, sin grid de tarjetas) */
+  .feature-rows{display:flex;flex-direction:column;}
+  .feature-row{
+    display:grid;grid-template-columns:300px 1fr;gap:40px;
+    padding:38px 0;border-top:1px solid var(--border-soft);align-items:start;
+  }
+  .feature-rows .feature-row:last-child{border-bottom:1px solid var(--border-soft);}
+  .row-head{display:flex;align-items:center;gap:16px;}
+  .row-num{font-family:'Space Grotesk';font-size:13px;color:var(--text-faint);letter-spacing:.05em;}
+  .service-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-soft);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+  .row-head h3{font-size:21px;color:#fff;}
+  .row-body p{color:var(--text-dim);font-size:15px;line-height:1.6;max-width:520px;margin-bottom:12px;}
   .service-link{font-size:13.5px;font-weight:700;color:#fff;display:inline-flex;align-items:center;gap:6px;}
 
-  /* MISION VISION VALORES (sin cajas, directo en el módulo) */
-  .mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 32px;}
-  .mvv-item{text-align:left;}
-  .mvv-item h3{font-size:19px;margin-bottom:10px;color:#fff;}
-  .mvv-item p{font-size:14.5px;line-height:1.6;color:var(--text-dim);}
+  /* HERO CAPABILITY ROW (estilo kast.xyz) */
+  .capability-row{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;padding-top:28px;border-top:1px solid var(--border-soft);}
+  .capability-row span{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);}
 
   /* PROJECTS CAROUSEL */
   .project-tag{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin-bottom:8px;display:block;}
@@ -244,7 +252,7 @@
     .burger{display:flex;}
     .hero-inner{grid-template-columns:1fr;}
     .hero-visual{order:-1;max-width:420px;margin:0 auto 20px;}
-    .services-grid,.mvv-grid{grid-template-columns:repeat(2,1fr);}
+    .feature-row{grid-template-columns:1fr;gap:16px;}
     .cta-section{grid-template-columns:1fr;padding:36px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
     .project-slide{grid-template-columns:1fr;}
@@ -252,7 +260,6 @@
   }
   @media (max-width:620px){
     .container{padding:0 20px;}
-    .services-grid,.mvv-grid{grid-template-columns:1fr;}
     .form-row{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
     section{padding:70px 0;}
@@ -292,6 +299,9 @@
         <a href="#contacto" class="btn btn-primary">Empezar mi proyecto <span class="btn-arrow"></span></a>
         <a href="#proyectos" class="btn btn-ghost">Ver proyectos</a>
       </div>
+      <div class="capability-row">
+        <span>Desarrollo Web</span><span>Apps Móviles</span><span>ERP · CRM</span><span>Cloud & DevOps</span><span>Automatización</span>
+      </div>
     </div>
     <div class="hero-visual reveal reveal-2">
       <div class="mock-card mock-shot">
@@ -312,23 +322,26 @@
 
 <section id="nosotros" class="section-alt">
   <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Nosotros</span>
-      <h2>Un equipo enfocado en construir bien</h2>
-      <p>Somos un estudio de desarrollo de software que acompaña a empresas y emprendedores a convertir ideas en productos digitales sólidos.</p>
-    </div>
-    <div class="mvv-grid">
-      <div class="mvv-item reveal reveal-1">
-        <h3>Misión</h3>
-        <p>Ofrecer servicios de software a medida que ayuden a las empresas a gestionar mejor sus datos, optimizar sus procesos e incrementar sus ingresos.</p>
+    <span class="eyebrow reveal">Nosotros</span>
+    <p class="statement reveal" style="margin-top:16px;margin-bottom:64px;">Somos un estudio de desarrollo de software que acompaña a empresas y emprendedores a convertir ideas en <b>productos digitales sólidos</b> — de la primera reunión al sistema funcionando en producción.</p>
+    <div class="feature-rows">
+      <div class="feature-row reveal reveal-1">
+        <div class="row-head"><span class="row-num">01</span><h3>Misión</h3></div>
+        <div class="row-body">
+          <p>Ofrecer servicios de software a medida que ayuden a las empresas a gestionar mejor sus datos, optimizar sus procesos e incrementar sus ingresos.</p>
+        </div>
       </div>
-      <div class="mvv-item reveal reveal-2">
-        <h3>Visión</h3>
-        <p>Ser la empresa boliviana líder en tecnología empresarial, referente para negocios que buscan digitalizar y hacer crecer su operación.</p>
+      <div class="feature-row reveal reveal-2">
+        <div class="row-head"><span class="row-num">02</span><h3>Visión</h3></div>
+        <div class="row-body">
+          <p>Ser la empresa boliviana líder en tecnología empresarial, referente para negocios que buscan digitalizar y hacer crecer su operación.</p>
+        </div>
       </div>
-      <div class="mvv-item reveal reveal-3">
-        <h3>Valores</h3>
-        <p>Transparencia y precios adecuados para cada cliente, trabajando siempre en sinergia para lograr resultados que realmente le sirvan a su negocio.</p>
+      <div class="feature-row reveal reveal-3">
+        <div class="row-head"><span class="row-num">03</span><h3>Valores</h3></div>
+        <div class="row-body">
+          <p>Transparencia y precios adecuados para cada cliente, trabajando siempre en sinergia para lograr resultados que realmente le sirvan a su negocio.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -350,42 +363,48 @@
       <h2>Soluciones digitales de extremo a extremo</h2>
       <p>Desde la idea hasta la puesta en producción y el mantenimiento: cubrimos cada etapa del ciclo de vida de tu producto.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-item reveal reveal-1">
-        <div class="service-icon">💻</div>
-        <h3>Desarrollo Web</h3>
-        <p>Sitios y plataformas web rápidas, seguras y escalables, construidas con tecnologías modernas.</p>
-        <a href="#contacto" class="service-link">Conocer más →</a>
+    <div class="feature-rows">
+      <div class="feature-row reveal reveal-1">
+        <div class="row-head"><div class="service-icon">💻</div><h3>Desarrollo Web</h3></div>
+        <div class="row-body">
+          <p>Sitios y plataformas web rápidas, seguras y escalables, construidas con tecnologías modernas.</p>
+          <a href="#contacto" class="service-link">Conocer más →</a>
+        </div>
       </div>
-      <div class="service-item reveal reveal-2">
-        <div class="service-icon">📱</div>
-        <h3>Apps Móviles</h3>
-        <p>Aplicaciones nativas e híbridas para iOS y Android, enfocadas en experiencia de usuario.</p>
-        <a href="#contacto" class="service-link">Conocer más →</a>
+      <div class="feature-row reveal reveal-2">
+        <div class="row-head"><div class="service-icon">📱</div><h3>Apps Móviles</h3></div>
+        <div class="row-body">
+          <p>Aplicaciones nativas e híbridas para iOS y Android, enfocadas en experiencia de usuario.</p>
+          <a href="#contacto" class="service-link">Conocer más →</a>
+        </div>
       </div>
-      <div class="service-item reveal reveal-3">
-        <div class="service-icon">🧩</div>
-        <h3>Software a Medida</h3>
-        <p>Sistemas hechos a medida de tus procesos: ERP, CRM, gestión interna y más.</p>
-        <a href="#contacto" class="service-link">Conocer más →</a>
+      <div class="feature-row reveal reveal-3">
+        <div class="row-head"><div class="service-icon">🧩</div><h3>Software a Medida</h3></div>
+        <div class="row-body">
+          <p>Sistemas hechos a medida de tus procesos: ERP, CRM, gestión interna y más.</p>
+          <a href="#contacto" class="service-link">Conocer más →</a>
+        </div>
       </div>
-      <div class="service-item reveal reveal-1">
-        <div class="service-icon">☁️</div>
-        <h3>Cloud & DevOps</h3>
-        <p>Infraestructura en AWS, GCP o Azure, CI/CD y automatización para escalar sin fricción.</p>
-        <a href="#contacto" class="service-link">Conocer más →</a>
+      <div class="feature-row reveal reveal-1">
+        <div class="row-head"><div class="service-icon">☁️</div><h3>Cloud & DevOps</h3></div>
+        <div class="row-body">
+          <p>Infraestructura en AWS, GCP o Azure, CI/CD y automatización para escalar sin fricción.</p>
+          <a href="#contacto" class="service-link">Conocer más →</a>
+        </div>
       </div>
-      <div class="service-item reveal reveal-2">
-        <div class="service-icon">🔗</div>
-        <h3>Integraciones & APIs</h3>
-        <p>Conectamos tus sistemas con pasarelas de pago, ERPs, CRMs y servicios de terceros.</p>
-        <a href="#contacto" class="service-link">Conocer más →</a>
+      <div class="feature-row reveal reveal-2">
+        <div class="row-head"><div class="service-icon">🔗</div><h3>Integraciones & APIs</h3></div>
+        <div class="row-body">
+          <p>Conectamos tus sistemas con pasarelas de pago, ERPs, CRMs y servicios de terceros.</p>
+          <a href="#contacto" class="service-link">Conocer más →</a>
+        </div>
       </div>
-      <div class="service-item reveal reveal-3">
-        <div class="service-icon">🛠️</div>
-        <h3>Soporte & Mantenimiento</h3>
-        <p>Monitoreo, mejoras continuas y soporte técnico para que tu producto nunca se detenga.</p>
-        <a href="#contacto" class="service-link">Conocer más →</a>
+      <div class="feature-row reveal reveal-3">
+        <div class="row-head"><div class="service-icon">🛠️</div><h3>Soporte & Mantenimiento</h3></div>
+        <div class="row-body">
+          <p>Monitoreo, mejoras continuas y soporte técnico para que tu producto nunca se detenga.</p>
+          <a href="#contacto" class="service-link">Conocer más →</a>
+        </div>
       </div>
     </div>
   </div>
