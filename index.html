@@ -670,6 +670,14 @@
 
   (function(){
     const items = document.querySelectorAll('.reveal');
+
+    function isInViewport(el){
+      const r = el.getBoundingClientRect();
+      return r.top < (window.innerHeight || document.documentElement.clientHeight) && r.bottom > 0;
+    }
+    // Revela de inmediato lo que ya está visible al cargar (por si el navegador no dispara el observer a tiempo).
+    items.forEach(el => { if(isInViewport(el)) el.classList.add('in-view'); });
+
     if(!('IntersectionObserver' in window)){
       items.forEach(el => el.classList.add('in-view'));
       return;
@@ -681,8 +689,8 @@
           io.unobserve(entry.target);
         }
       });
-    }, {threshold:0.15, rootMargin:'0px 0px -60px 0px'});
-    items.forEach(el => io.observe(el));
+    }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+    items.forEach(el => { if(!el.classList.contains('in-view')) io.observe(el); });
   })();
 
   document.getElementById('burger').addEventListener('click', function(){
