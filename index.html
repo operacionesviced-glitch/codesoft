@@ -100,14 +100,27 @@
   .logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:19px;color:var(--text);}
   .logo-mark{width:34px;height:34px;background:#fff;border:1px solid var(--border-soft);border-radius:8px;padding:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
   .logo-mark img{width:100%;height:100%;object-fit:contain;}
-  .nav-links{display:flex;gap:30px;font-size:14px;font-weight:600;color:var(--text-dim);}
-  .nav-links a{display:inline-flex;align-items:center;gap:6px;}
-  .nav-links a:hover{color:var(--text);}
+  .nav-links{display:flex;align-items:center;gap:30px;font-size:14px;font-weight:600;color:var(--text-dim);}
+  .nav-links > a{display:inline-flex;align-items:center;gap:6px;}
+  .nav-links > a:hover{color:var(--text);}
   .nav-icon{width:15px;height:15px;flex-shrink:0;}
+
+  /* DROPDOWN "Nosotros" */
+  .nav-dropdown{position:relative;}
+  .nav-dropdown-trigger{display:inline-flex;align-items:center;gap:5px;background:none;border:none;padding:0;font:inherit;font-weight:600;color:var(--text-dim);cursor:pointer;}
+  .nav-dropdown-trigger:hover{color:var(--text);}
+  .nav-dropdown-caret{width:9px;height:9px;transition:transform .2s ease;}
+  .nav-dropdown.is-open .nav-dropdown-caret{transform:rotate(180deg);}
+  .nav-dropdown-menu{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:220px;background:var(--panel);border:1px solid var(--border-soft);border-radius:14px;padding:8px;box-shadow:0 24px 48px -20px var(--image-shadow);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:200;}
+  .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown.is-open .nav-dropdown-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+  .nav-dropdown-menu a{display:block;padding:11px 14px;border-radius:9px;font-size:14px;font-weight:600;color:var(--text-dim);white-space:nowrap;}
+  .nav-dropdown-menu a:hover{background:var(--icon-bg);color:var(--text);}
+  .nav-dropdown-menu .nav-dropdown-cta{color:var(--text);margin-top:2px;border-top:1px solid var(--border-soft);padding-top:12px;}
+
   .nav-right{display:flex;align-items:center;gap:16px;}
   .nav-phone{font-size:14px;color:var(--text-dim);font-weight:600;}
   .nav-phone:hover{color:var(--text);}
-  .theme-toggle{width:38px;height:38px;border-radius:999px;border:1px solid var(--border);background:var(--panel);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:.2s ease;}
+  .theme-toggle{width:38px;height:38px;border-radius:999px;border:1px solid var(--border);background:var(--panel);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.2s ease;}
   .theme-toggle:hover{border-color:var(--text);}
   .burger{display:none;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);align-items:center;justify-content:center;cursor:pointer;background:var(--panel);}
   .burger span,.burger span::before,.burger span::after{content:"";display:block;width:16px;height:2px;background:var(--text);position:relative;transition:.2s;}
@@ -227,6 +240,13 @@
   @media (max-width:980px){
     .nav-links,.nav-phone{display:none;}
     .burger{display:flex;}
+    .nav-links{flex-direction:column;align-items:flex-start;gap:4px;}
+    .nav-dropdown{width:100%;}
+    .nav-dropdown-trigger{width:100%;justify-content:space-between;padding:4px 0;}
+    .nav-dropdown-menu{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;box-shadow:none;border:none;background:transparent;padding:0 0 4px 10px;width:100%;display:none;}
+    .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown.is-open .nav-dropdown-menu{display:block;transform:none;left:0;}
+    .nav-dropdown-menu a{padding:9px 0;}
+    .nav-dropdown-menu .nav-dropdown-cta{border-top:none;padding-top:9px;}
     .feature-row,.highlight-row,.security-row{grid-template-columns:1fr;gap:16px;}
     .cta-section,.schedule-section{grid-template-columns:1fr;padding:36px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
@@ -255,15 +275,23 @@
       <div class="nav-links">
         <a href="#que-hacemos">Qué hacemos</a>
         <a href="#proyectos">Proyectos</a>
-        <a href="#nosotros"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"></circle><path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path></svg>Nosotros</a>
-        <a href="#agendar"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>Agendar reunión</a>
+        <div class="nav-dropdown" id="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger" id="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            Nosotros
+            <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+            <a href="#agendar">Agendar reunión</a>
+            <a href="#contacto" class="nav-dropdown-cta">Solicitar propuesta</a>
+          </div>
+        </div>
         <a href="#seguridad">Seguridad</a>
-        <a href="#contacto"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 6 10 7 10-7"></path></svg>Contacto</a>
       </div>
       <div class="nav-right">
         <a href="https://wa.me/59163968427" target="_blank" rel="noopener" class="nav-phone">+591 6396-8427</a>
-        <a href="#contacto" class="btn btn-primary"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>Solicitar propuesta</a>
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema claro/oscuro">🌙</button>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema claro/oscuro"></button>
         <div class="burger" id="burger"><span></span></div>
       </div>
     </nav>
@@ -775,14 +803,46 @@
     const THEME_KEY = 'codesoft-theme';
     const toggle = document.getElementById('theme-toggle');
     if(!toggle) return;
-    function iconFor(theme){ return theme === 'light' ? '🌙' : '☀️'; }
+    const SUN = '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>';
+    const MOON = '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>';
+    function iconFor(theme){ return theme === 'light' ? MOON : SUN; }
     function current(){ return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
-    toggle.textContent = iconFor(current());
+    toggle.innerHTML = iconFor(current());
     toggle.addEventListener('click', function(){
       const next = current() === 'light' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', next);
-      toggle.textContent = iconFor(next);
+      toggle.innerHTML = iconFor(next);
       try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+    });
+  })();
+
+  (function(){
+    const dropdown = document.getElementById('nav-dropdown');
+    const trigger = document.getElementById('nav-dropdown-trigger');
+    if(!dropdown || !trigger) return;
+
+    function close(){
+      dropdown.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+    function toggleOpen(){
+      const willOpen = !dropdown.classList.contains('is-open');
+      dropdown.classList.toggle('is-open', willOpen);
+      trigger.setAttribute('aria-expanded', String(willOpen));
+    }
+
+    trigger.addEventListener('click', function(event){
+      event.stopPropagation();
+      toggleOpen();
+    });
+    document.addEventListener('click', function(event){
+      if(!dropdown.contains(event.target)) close();
+    });
+    document.addEventListener('keydown', function(event){
+      if(event.key === 'Escape') close();
+    });
+    dropdown.querySelectorAll('.nav-dropdown-menu a').forEach(function(a){
+      a.addEventListener('click', close);
     });
   })();
 
