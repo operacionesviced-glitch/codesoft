@@ -220,15 +220,34 @@
   textarea{resize:vertical;min-height:90px;}
   form .btn{margin-top:6px;}
 
-  /* AGENDAR REUNIÓN */
-  .schedule-section{background:var(--panel);border:1px solid var(--border-soft);border-radius:28px;padding:60px;display:grid;grid-template-columns:1fr 1fr;gap:50px;}
-  .schedule-section h2{font-size:clamp(26px,3vw,36px);margin-bottom:16px;color:var(--text);}
-  .schedule-section p{color:var(--text-dim);margin-bottom:22px;}
-  .schedule-hours{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--panel-2);border:1px solid var(--border-soft);border-radius:14px;margin-bottom:14px;}
-  .schedule-hours b{color:var(--text);display:block;font-size:14.5px;}
-  .schedule-hours span{font-size:13px;color:var(--text-dim);}
-  .schedule-note{font-size:12.5px;color:var(--text-faint);}
-  .field-label{font-size:12.5px;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:-6px;}
+  /* AGENDAR REUNIÓN — calendario tipo Calendly */
+  .scheduler{background:var(--panel);border:1px solid var(--border-soft);border-radius:28px;padding:44px;}
+  .scheduler-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;padding-bottom:28px;border-bottom:1px solid var(--border-soft);margin-bottom:24px;}
+
+  .scheduler-cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+  .scheduler-cal-header span{font-family:'Space Grotesk';font-weight:700;font-size:15.5px;color:var(--text);text-transform:capitalize;}
+  .scheduler-cal-nav{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--panel-2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s ease;}
+  .scheduler-cal-nav:hover:not(:disabled){border-color:var(--text);}
+  .scheduler-cal-nav:disabled{opacity:.3;cursor:not-allowed;}
+  .scheduler-cal-nav svg{width:14px;height:14px;}
+  .scheduler-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:.04em;margin-bottom:8px;}
+  .scheduler-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+  .scheduler-day{aspect-ratio:1;border:none;background:none;border-radius:50%;font-size:13.5px;font-weight:600;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s ease;}
+  .scheduler-day:hover:not(:disabled){background:var(--icon-bg);color:var(--text);}
+  .scheduler-day.is-selected{background:var(--btn-primary-bg);color:var(--btn-primary-text);font-weight:700;}
+  .scheduler-day:disabled{color:var(--text-faint);opacity:.3;cursor:not-allowed;background:none;}
+  .scheduler-day.is-empty{visibility:hidden;cursor:default;}
+
+  .scheduler-times-header{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:16px;min-height:20px;}
+  .scheduler-slots{display:flex;flex-direction:column;gap:10px;max-height:260px;overflow-y:auto;padding-right:6px;}
+  .scheduler-slots-empty{color:var(--text-faint);font-size:13.5px;}
+  .scheduler-slot{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);font-weight:700;font-size:14px;cursor:pointer;text-align:center;transition:.15s ease;}
+  .scheduler-slot:hover{border-color:var(--text);}
+  .scheduler-slot.is-selected{background:var(--btn-primary-bg);color:var(--btn-primary-text);border-color:var(--btn-primary-bg);}
+
+  .scheduler-tz{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--text-dim);font-weight:600;margin-bottom:24px;flex-wrap:wrap;}
+  .scheduler-tz svg{width:16px;height:16px;flex-shrink:0;color:var(--text-faint);}
+  .schedule-note{font-size:12.5px;color:var(--text-faint);margin-top:14px;}
 
   /* SEGURIDAD */
   .security-row{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;border-top:1px solid var(--border-soft);padding-top:50px;}
@@ -260,7 +279,9 @@
     .nav-dropdown-menu .nav-dropdown-cta{border-top:none;padding-top:9px;}
     .feature-row,.highlight-row,.security-row{grid-template-columns:1fr;gap:16px;}
     .integrations-grid{grid-template-columns:repeat(2,1fr);}
-    .cta-section,.schedule-section{grid-template-columns:1fr;padding:36px;}
+    .cta-section{grid-template-columns:1fr;padding:36px;}
+    .scheduler{padding:28px;}
+    .scheduler-grid{grid-template-columns:1fr;gap:28px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
     .project-slide{grid-template-columns:1fr;overflow-y:auto;}
     .project-carousel{min-height:640px;}
@@ -527,39 +548,52 @@
 
 <section id="agendar">
   <div class="container">
-    <div class="schedule-section reveal">
-      <div>
-        <span class="eyebrow">Reunión</span>
-        <h2 style="margin-top:14px;">Agendá una reunión con nosotros</h2>
-        <p>Elegí fecha y hora y coordinamos una llamada o videollamada para hablar de tu proyecto.</p>
-        <div class="schedule-hours">
-          <span class="whatsapp-icon" style="background:var(--icon-bg);font-size:16px;">🗓️</span>
-          <div>
-            <b>Lunes a sábado, 8:00 a 18:00</b>
-            <span>Hora de Bolivia (GMT-4)</span>
+    <div class="section-label reveal">
+      <h2>Agendá una reunión con nosotros</h2>
+      <p>Elegí un día y horario disponible y coordinamos una llamada por Meet para hablar de tu proyecto.</p>
+    </div>
+    <div class="scheduler reveal">
+      <div class="scheduler-grid">
+        <div class="scheduler-calendar">
+          <div class="scheduler-cal-header">
+            <button type="button" class="scheduler-cal-nav" id="cal-prev" aria-label="Mes anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+            </button>
+            <span id="cal-month-label"></span>
+            <button type="button" class="scheduler-cal-nav" id="cal-next" aria-label="Mes siguiente">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+          </div>
+          <div class="scheduler-weekdays">
+            <span>LUN</span><span>MAR</span><span>MIÉ</span><span>JUE</span><span>VIE</span><span>SÁB</span><span>DOM</span>
+          </div>
+          <div class="scheduler-days" id="cal-days"></div>
+        </div>
+        <div class="scheduler-times">
+          <div class="scheduler-times-header" id="selected-date-label">Elegí un día en el calendario</div>
+          <div class="scheduler-slots" id="time-slots">
+            <p class="scheduler-slots-empty">Los horarios disponibles van a aparecer acá.</p>
           </div>
         </div>
-        <p class="schedule-note">Te confirmamos la reunión por WhatsApp o email en las próximas horas.</p>
       </div>
+
+      <div class="scheduler-tz">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"></path></svg>
+        Hora de Bolivia (GMT-4) · Lunes a sábado, 8:00 a 18:00
+      </div>
+
       <form id="schedule-form" onsubmit="return agendarReunion(event)">
+        <input type="hidden" name="fecha" id="reunion-fecha">
+        <input type="hidden" name="hora" id="reunion-hora">
         <div class="form-row">
           <input type="text" name="nombre" placeholder="Nombre completo" required>
           <input type="email" name="email" placeholder="Email" required>
         </div>
         <input type="tel" name="telefono" placeholder="Teléfono / WhatsApp">
-        <div class="form-row">
-          <div>
-            <div class="field-label">Fecha</div>
-            <input type="date" name="fecha" id="reunion-fecha" required style="margin-top:8px;">
-          </div>
-          <div>
-            <div class="field-label">Hora (Bolivia)</div>
-            <input type="time" name="hora" id="reunion-hora" min="08:00" max="18:00" required style="margin-top:8px;">
-          </div>
-        </div>
         <textarea name="mensaje" placeholder="¿De qué te gustaría hablar? (opcional)"></textarea>
-        <button type="submit" class="btn btn-primary">Agendar reunión <span class="btn-arrow"></span></button>
+        <button type="submit" class="btn btn-primary" id="schedule-submit" disabled>Agendar reunión <span class="btn-arrow"></span></button>
       </form>
+      <p class="schedule-note">Te confirmamos la reunión por WhatsApp o email en las próximas horas.</p>
     </div>
   </div>
 </section>
@@ -718,11 +752,133 @@
   const SUPABASE_SCHEDULE_FN_URL = 'https://wprxcaxparunmmhzjgka.supabase.co/functions/v1/agendar-reunion';
 
   (function(){
+    const calDays = document.getElementById('cal-days');
+    const monthLabel = document.getElementById('cal-month-label');
+    const prevBtn = document.getElementById('cal-prev');
+    const nextBtn = document.getElementById('cal-next');
+    const dateLabel = document.getElementById('selected-date-label');
+    const slotsBox = document.getElementById('time-slots');
     const fechaInput = document.getElementById('reunion-fecha');
-    if(!fechaInput) return;
+    const horaInput = document.getElementById('reunion-hora');
+    const submitBtn = document.getElementById('schedule-submit');
+    if(!calDays) return;
+
+    const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    const DIAS_LARGOS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
     const hoy = new Date();
     hoy.setHours(0,0,0,0);
-    fechaInput.min = hoy.toISOString().slice(0,10);
+
+    let viewYear = hoy.getFullYear();
+    let viewMonth = hoy.getMonth();
+    let selectedDate = null; // Date
+    let selectedTime = null; // 'HH:MM'
+
+    function toMondayIndex(jsDay){ return (jsDay + 6) % 7; }
+
+    function formatSlot(hour, minute){
+      const period = hour < 12 ? 'a. m.' : 'p. m.';
+      const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+      const mm = minute === 0 ? '00' : String(minute);
+      return `${hour12}:${mm} ${period}`;
+    }
+
+    function renderCalendar(){
+      monthLabel.textContent = `${MESES[viewMonth]} ${viewYear}`;
+      prevBtn.disabled = viewYear === hoy.getFullYear() && viewMonth === hoy.getMonth();
+
+      calDays.innerHTML = '';
+      const firstOfMonth = new Date(viewYear, viewMonth, 1);
+      const leading = toMondayIndex(firstOfMonth.getDay());
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+      for(let i = 0; i < leading; i++){
+        const empty = document.createElement('span');
+        empty.className = 'scheduler-day is-empty';
+        calDays.appendChild(empty);
+      }
+
+      for(let d = 1; d <= daysInMonth; d++){
+        const date = new Date(viewYear, viewMonth, d);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'scheduler-day';
+        btn.textContent = String(d);
+
+        const isPast = date < hoy;
+        const isSunday = date.getDay() === 0;
+        if(isPast || isSunday){
+          btn.disabled = true;
+        } else {
+          btn.addEventListener('click', () => selectDate(date));
+        }
+        if(selectedDate && date.getTime() === selectedDate.getTime()){
+          btn.classList.add('is-selected');
+        }
+        calDays.appendChild(btn);
+      }
+    }
+
+    function selectDate(date){
+      selectedDate = date;
+      selectedTime = null;
+      horaInput.value = '';
+      submitBtn.disabled = true;
+      renderCalendar();
+      renderSlots();
+    }
+
+    function renderSlots(){
+      if(!selectedDate){
+        dateLabel.textContent = 'Elegí un día en el calendario';
+        slotsBox.innerHTML = '<p class="scheduler-slots-empty">Los horarios disponibles van a aparecer acá.</p>';
+        return;
+      }
+      dateLabel.textContent = `${DIAS_LARGOS[selectedDate.getDay()]}, ${selectedDate.getDate()} de ${MESES[selectedDate.getMonth()]}`;
+      slotsBox.innerHTML = '';
+      for(let hour = 8; hour <= 17; hour++){
+        [0, 30].forEach(minute => {
+          const hhmm = `${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}`;
+          const slot = document.createElement('button');
+          slot.type = 'button';
+          slot.className = 'scheduler-slot';
+          slot.textContent = formatSlot(hour, minute);
+          if(selectedTime === hhmm) slot.classList.add('is-selected');
+          slot.addEventListener('click', () => {
+            selectedTime = hhmm;
+            fechaInput.value = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth()+1).padStart(2,'0')}-${String(selectedDate.getDate()).padStart(2,'0')}`;
+            horaInput.value = hhmm;
+            submitBtn.disabled = false;
+            renderSlots();
+          });
+          slotsBox.appendChild(slot);
+        });
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      viewMonth -= 1;
+      if(viewMonth < 0){ viewMonth = 11; viewYear -= 1; }
+      renderCalendar();
+    });
+    nextBtn.addEventListener('click', () => {
+      viewMonth += 1;
+      if(viewMonth > 11){ viewMonth = 0; viewYear += 1; }
+      renderCalendar();
+    });
+
+    renderCalendar();
+    renderSlots();
+
+    window.__resetScheduler = function(){
+      selectedDate = null;
+      selectedTime = null;
+      fechaInput.value = '';
+      horaInput.value = '';
+      submitBtn.disabled = true;
+      renderCalendar();
+      renderSlots();
+    };
   })();
 
   async function agendarReunion(event){
@@ -733,6 +889,11 @@
 
     const fechaStr = form.fecha.value;
     const horaStr = form.hora.value;
+
+    if(!fechaStr || !horaStr){
+      alert('Elegí un día y un horario del calendario.');
+      return false;
+    }
 
     // valida día hábil (lunes a sábado) parseando como fecha local, no UTC
     const [y, m, d] = fechaStr.split('-').map(Number);
@@ -770,6 +931,7 @@
       if(!res.ok) throw new Error('request failed');
       alert('¡Listo! Agendamos tu reunión y te la confirmamos a la brevedad.');
       form.reset();
+      if(window.__resetScheduler) window.__resetScheduler();
     }catch(err){
       alert('No pudimos agendar la reunión. Probá de nuevo o escribinos por WhatsApp.');
     }finally{
